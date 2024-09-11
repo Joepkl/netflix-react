@@ -1,6 +1,6 @@
 # Netflix clone
 
-Netflix app project. Uses Vite for development and build processes, alogn with Redux for persisted state management and React Router for handling routes.
+Netflix app project. Uses Vite for development and build processes, along with Redux for persisted state management and React Router for handling routes.
 
 ## Tech stack
 
