@@ -10,13 +10,13 @@ Netflix app project. Uses Vite for dev and build processes, alogn with Redux for
 
 ## Installation
 
-`git clone ...`
-`cd netflix-react`
-`npm install`
+1. `git clone ...`
+2. `cd netflix-react`
+3. `npm install`
 
 ## Scripts
 
-Start dev server: `npm run dev`
-Build: `npm run buid`
-Linter: `npm run lint`
-Preview: `npm run preview`
+- Start dev server: `npm run dev`
+- Build: `npm run buid`
+- Linter: `npm run lint`
+- Preview: `npm run preview`
