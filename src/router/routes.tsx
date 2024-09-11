@@ -1,6 +1,6 @@
 /** Pages */
-import App from "../pages/Home.tsx";
-import Test from "../pages/Test.tsx";
+import App from "@/pages/Home.tsx";
+import Test from "@/pages/Test.tsx";
 
 /** Routes */
 export const ROUTES = [

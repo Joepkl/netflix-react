@@ -5,7 +5,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "redux";
 
 /** Local */
-import userReducer from "./slices/user.ts";
+import userReducer from "@/store/slices/user.ts";
 
 /** Config */
 const persistConfig = {

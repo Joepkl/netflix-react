@@ -2,8 +2,8 @@
 import { Link } from "react-router-dom";
 
 /** Local */
-import { decrement, increment } from "../store/slices/user.ts";
-import { useAppSelector, useAppDispatch } from "../store/hooks.ts";
+import { decrement, increment } from "@/store/slices/user.ts";
+import { useAppSelector, useAppDispatch } from "@/store/hooks.ts";
 
 /** Component */
 const Test = () => {

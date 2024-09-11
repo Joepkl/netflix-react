@@ -6,11 +6,11 @@ import { PersistGate } from "redux-persist/integration/react";
 
 /** Router */
 import { RouterProvider } from "react-router-dom";
-import { router } from "./router/router.tsx";
+import { router } from "@/router/router.tsx";
 
 /** Local */
-import "./main.css";
-import { store, persistor } from "./store/store.ts";
+import "@/main.css";
+import { store, persistor } from "@/store/store.ts";
 
 /** Root */
 createRoot(document.getElementById("root") as HTMLElement).render(
