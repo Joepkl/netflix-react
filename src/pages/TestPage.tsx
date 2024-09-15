@@ -6,14 +6,15 @@ import { decrement, increment } from "@/store/slices/user.ts";
 import { useAppSelector, useAppDispatch } from "@/store/hooks.ts";
 
 /** Component */
-const App = () => {
+const TestPage = () => {
   const count = useAppSelector((state) => state.user.value);
   const dispatch = useAppDispatch();
 
+  /** Markup */
   return (
     <div>
-      <h1>Home</h1>
-      <Link to="/page1">Page 1</Link>
+      <h1>Page 2</h1>
+      <Link to="/">Home page</Link>
       <button aria-label="Increment value" onClick={() => dispatch(increment())}>
         Increment
       </button>
@@ -25,4 +26,4 @@ const App = () => {
   );
 };
 
-export default App;
+export { TestPage };

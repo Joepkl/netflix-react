@@ -1,3 +1,54 @@
+/** Import Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/** Custom classes */
+@layer utilities {
+  .bg-blue-gradient {
+    background-image: linear-gradient(to top, #141414, #0d1b2a);
+    background-repeat: no-repeat;
+  }
+}
+
+/** General styles */
+@layer base {
+  body {
+    @apply text-white-main font-normal bg-blue-gradient min-h-[100dvh];
+  }
+
+  h1 {
+    @apply text-2xl lg:text-3xl;
+  }
+
+  h2 {
+    @apply text-xl lg:text-2xl;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-lg lg:text-xl;
+  }
+
+  p,
+  a,
+  button,
+  span {
+    @apply text-base lg:text-lg;
+  }
+
+  img {
+    @apply w-full;
+  }
+
+  input {
+    @apply appearance-none rounded-none;
+  }
+
+  ul,
+  li {
+    @apply list-none;
+  }
+}
