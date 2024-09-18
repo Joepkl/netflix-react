@@ -44,7 +44,7 @@
   }
 
   input {
-    @apply appearance-none rounded-none;
+    @apply appearance-none rounded-none outline-none focus:outline-none active:outline-none;
   }
 
   ul,

@@ -25,8 +25,8 @@ const LoginPage = () => {
 
   /** Markup */
   return (
-    <PageWrapper disablePaddingTop={true}>
-      <div className="flex flex-col justify-center h-full">
+    <PageWrapper disablePaddingTop>
+      <div className="flex flex-col justify-center h-[100dvh]">
         <LogoAnimation />
 
         <ul className="flex flex-wrap sm:justify-center mt-[80px] md:w-[80%] md:mx-auto md:mt-[120px] gap-x-8 gap-y-4">

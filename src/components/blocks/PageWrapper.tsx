@@ -25,7 +25,7 @@ const PageWrapper = ({
   const paddingClasses = `${paddingTopClass} ${paddingBottomClass} ${paddingLeftClass} ${paddingRightClass}`;
 
   /** Markup */
-  return <section className={`${paddingClasses} min-h-[100dvh] h-[1px]`}>{children}</section>;
+  return <section className={`${paddingClasses} min-h-[100dvh]`}>{children}</section>;
 };
 
 export { PageWrapper };
