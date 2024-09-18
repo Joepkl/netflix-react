@@ -14,6 +14,7 @@ const Users = [
   { username: "Mary", profilePicture: ProfileImage1 },
   { username: "John", profilePicture: ProfileImage2 },
   { username: "William", profilePicture: ProfileImage3 },
+  // { username: "William", profilePicture: ProfileImage3 },
 ];
 
 export { Users };

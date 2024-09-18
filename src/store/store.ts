@@ -5,7 +5,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "redux";
 
 /** Local */
-import userReducer from "@/store/slices/user.ts";
+import appReducer from "@/store/slices/app.ts";
 
 /** Config */
 const persistConfig = {
@@ -14,11 +14,11 @@ const persistConfig = {
   // LocalStorage by default
   storage,
   // Reducers to persist
-  whitelist: ["user"],
+  whitelist: ["app"],
 };
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  app: appReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

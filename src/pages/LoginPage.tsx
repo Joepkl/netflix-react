@@ -1,23 +1,27 @@
-/** Vendor */
-import { useEffect } from "react";
-
 /** Local */
 import { Users } from "@/constants/Users.ts";
+import { setIsLoggedIn, setUserProfile, setIsLoading } from "@/store/slices/app.ts";
+import { useAppDispatch } from "@/store/hooks.ts";
+import AddIcon from "@/assets/icons/add_white.svg";
 
 /** Blocks */
 import { LogoAnimation } from "@/components/blocks/LogoAnimation.tsx";
 import { PageWrapper } from "@/components/blocks/PageWrapper.tsx";
-import { UserProfile } from "@/components/blocks/UserProfile.tsx";
+import { UserProfileBlock } from "@/components/blocks/UserProfile.tsx";
 
 /** Component */
 const LoginPage = () => {
-  const gridColsClasses =
-    "grid-cols-[repeat(auto-fill,minmax(100px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(150px,1fr))]";
+  const dispatch = useAppDispatch();
+  const widthClass = "w-[calc(50%-16px)] sm:w-[calc(33%-22px)] max-w-[150px]";
+  const addAccount = { username: "Add account", profilePicture: AddIcon };
 
-  /** Effects */
-  useEffect(() => {
-    console.log("Start animation");
-  });
+  const handleLogin = (username: string) => {
+    dispatch(setIsLoggedIn(true));
+    dispatch(setUserProfile(username));
+
+    // Make API call to fetch user movies
+    dispatch(setIsLoading(true));
+  };
 
   /** Markup */
   return (
@@ -25,14 +29,24 @@ const LoginPage = () => {
       <div className="flex flex-col justify-center h-full">
         <LogoAnimation />
 
-        <ul className={`${gridColsClasses} mt-[80px] grid  gap-x-6 gap-y-3 md:gap-6 lg:gap-8`}>
+        <ul className="flex flex-wrap sm:justify-center mt-[80px] md:w-[80%] md:mx-auto md:mt-[120px] gap-x-8 gap-y-4">
+          {/* Users */}
           {Users.map((user, index) => {
             return (
-              <li key={index}>
-                <UserProfile user={user} route="/browse" />
+              <li key={index} className={widthClass}>
+                <UserProfileBlock
+                  onClick={() => handleLogin(user.username)}
+                  user={user}
+                  route="/browse"
+                  animated={true}
+                />
               </li>
             );
           })}
+
+          <li className={widthClass}>
+            <UserProfileBlock user={addAccount} animated={true} route="/manage" isAddAccountBlock={true} />
+          </li>
         </ul>
       </div>
     </PageWrapper>

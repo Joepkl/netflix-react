@@ -2,13 +2,13 @@
 import { useEffect } from "react";
 
 /** Local */
-import NIcon from "@/assets/icons/n_icon.svg";
-import EIcon from "@/assets/icons/e_icon.svg";
-import TIcon from "@/assets/icons/t_icon.svg";
-import FIcon from "@/assets/icons/f_icon.svg";
-import LIcon from "@/assets/icons/l_icon.svg";
-import IIcon from "@/assets/icons/i_icon.svg";
-import XIcon from "@/assets/icons/x_icon.svg";
+import NIcon from "@/assets/icons/n_logo.svg";
+import EIcon from "@/assets/icons/e_logo.svg";
+import TIcon from "@/assets/icons/t_logo.svg";
+import FIcon from "@/assets/icons/f_logo.svg";
+import LIcon from "@/assets/icons/l_logo.svg";
+import IIcon from "@/assets/icons/i_logo.svg";
+import XIcon from "@/assets/icons/x_logo.svg";
 
 /** Type */
 type LogoAnimationType = {
