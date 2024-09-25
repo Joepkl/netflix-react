@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 
 /** Local */
 import { useAppSelector } from "@/store/hooks.ts";
+import { useIntersectionObserverHelper } from "@/helpers/IntersectionObserverHelper.tsx";
 
 /** Blocks */
 import { SearchBox } from "@/components/blocks/SearchBox.tsx";
@@ -15,38 +16,22 @@ const Header = () => {
   const username = useAppSelector((state) => state.app.username);
   const stickyHeaderClass = isHeaderSticky ? "sticky top-0 bg-black-transparent backdrop-blur-xl !py-5 z-50" : "";
 
-  const setStickyHeader = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        setIsHeaderSticky(true);
-      }
-    });
-  };
-
   const collapseSearchBox = () => {
     setIsSearchBoxExpanded(false);
   };
 
-  /** Effects */
+  /** Hooks */
+  useIntersectionObserverHelper({
+    targetRef: headerRef,
+    callbackNotIntersecting: () => setIsHeaderSticky(true),
+  });
+
   useEffect(() => {
-    let observer: IntersectionObserver;
-    let target: HTMLElement;
-
-    const initObserver = () => {
-      observer = new IntersectionObserver(setStickyHeader, { threshold: 0.3 });
-      if (headerRef.current) {
-        target = headerRef.current;
-        observer.observe(target);
-      }
-    };
-
     const handleScrollTop = () => {
       if (window.scrollY <= 5) {
         setIsHeaderSticky(false);
       }
     };
-
-    initObserver();
 
     // Reset sticky header when user scrolls to top
     // Can't be done with IntersectionObserver because of re-render when header is sticky and pops in view
@@ -54,7 +39,6 @@ const Header = () => {
 
     return () => {
       document.removeEventListener("scroll", handleScrollTop);
-      observer.unobserve(target);
     };
   }, []);
 
