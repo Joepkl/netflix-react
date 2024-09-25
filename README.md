@@ -1,6 +1,6 @@
 # Netflix clone
 
-Netflix app project. Uses Vite for development and build processes, along with Redux for persisted state management and React router for handling routes. Data fetching is handled by using Axios.
+Netflix app project. Uses Vite for development and build processes, along with Redux for persisted state management and React router for handling routes. API requests are handled by Axios.
 
 ## Tech stack
 
