@@ -6,15 +6,15 @@ export const appReducer = createSlice({
   name: "app",
   initialState: {
     isLoading: false,
-    isLoggedIn: false,
+    isAuthenticated: false,
     username: "",
   },
   reducers: {
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
-    setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
-      state.isLoggedIn = action.payload;
+    setIsAuthenticated: (state, action: PayloadAction<boolean>) => {
+      state.isAuthenticated = action.payload;
     },
     setUserProfile: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
@@ -23,6 +23,6 @@ export const appReducer = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setIsLoggedIn, setUserProfile, setIsLoading } = appReducer.actions;
+export const { setIsAuthenticated, setUserProfile, setIsLoading } = appReducer.actions;
 
 export default appReducer.reducer;

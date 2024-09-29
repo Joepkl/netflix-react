@@ -5,6 +5,8 @@ import { Navigate } from "react-router-dom";
 import { LoginPage } from "@/pages/LoginPage.tsx";
 import { BrowsePage } from "@/pages/BrowsePage.tsx";
 import { ManageProfilesPage } from "@/pages/ManageProfilesPage.tsx";
+import { AuthGuard } from "@/helpers/route/AuthGuard.tsx";
+import { createRouteWithGuard } from "@/helpers/route/createRouteWithGuard.tsx";
 
 /** Routes */
 export const ROUTES = [
@@ -18,7 +20,7 @@ export const ROUTES = [
   },
   {
     path: "/browse",
-    element: <BrowsePage />,
+    element: createRouteWithGuard({ routeGuard: AuthGuard, children: <BrowsePage /> }),
   },
   {
     path: "/manage",

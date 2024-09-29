@@ -1,6 +1,6 @@
 /** Local */
 import { Users } from "@/constants/Users.ts";
-import { setIsLoggedIn, setUserProfile, setIsLoading } from "@/store/slices/app.ts";
+import { setIsAuthenticated, setUserProfile, setIsLoading } from "@/store/slices/app.ts";
 import { useAppDispatch } from "@/store/hooks.ts";
 import AddIcon from "@/assets/icons/add_white.svg";
 
@@ -16,7 +16,7 @@ const LoginPage = () => {
   const addAccount = { username: "Add account", profilePicture: AddIcon };
 
   const handleLogin = (username: string) => {
-    dispatch(setIsLoggedIn(true));
+    dispatch(setIsAuthenticated(true));
     dispatch(setUserProfile(username));
 
     // Make API call to fetch user movies

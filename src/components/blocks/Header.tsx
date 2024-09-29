@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from "react";
 
 /** Local */
 import { useAppSelector } from "@/store/hooks.ts";
-import { useIntersectionObserverHelper } from "@/helpers/IntersectionObserverHelper.tsx";
+import { useIntersectionObserverHelper } from "@/helpers/generic/useIntersectionObserverHelper.tsx";
 
 /** Blocks */
 import { SearchBox } from "@/components/blocks/SearchBox.tsx";
