@@ -7,6 +7,7 @@ export const appReducer = createSlice({
   initialState: {
     isLoading: false,
     isAuthenticated: false,
+    isSearchActive: false,
     username: "",
   },
   reducers: {
@@ -16,6 +17,9 @@ export const appReducer = createSlice({
     setIsAuthenticated: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
     },
+    setIsSearchActive: (state, action: PayloadAction<boolean>) => {
+      state.isSearchActive = action.payload;
+    },
     setUserProfile: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
     },
@@ -23,6 +27,6 @@ export const appReducer = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setIsAuthenticated, setUserProfile, setIsLoading } = appReducer.actions;
+export const { setIsLoading, setIsAuthenticated, setIsSearchActive, setUserProfile } = appReducer.actions;
 
 export default appReducer.reducer;

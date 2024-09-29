@@ -1,26 +1,31 @@
 /** Vendor */
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChangeEvent } from "react";
 
 /** Local */
+import { useAppDispatch, useAppSelector } from "@/store/hooks.ts";
 import SearchIcon from "@/assets/icons/search_white.svg";
 import CrossIcon from "@/assets/icons/cross_white.svg";
+import { setIsSearchActive } from "@/store/slices/app.ts";
 
 /** Type */
 type SearchBoxPropsType = {
-  sendIsSearchBoxExpanded: (data: boolean) => void;
+  getIsSearchBoxExpanded: (data: boolean) => void;
+  onSearch: (input: string) => void;
   isSearchBoxExpanded: boolean;
 };
 
 /** Component */
-const SearchBox = ({ sendIsSearchBoxExpanded, isSearchBoxExpanded }: SearchBoxPropsType) => {
+const SearchBox = ({ getIsSearchBoxExpanded, onSearch, isSearchBoxExpanded }: SearchBoxPropsType) => {
+  const dispatch = useAppDispatch();
   const transitionClass = "transition-all duration-300 ease-in-out";
   const [searchInput, setSearchInput] = useState("");
-  const hasSearchInput = searchInput.length > 0;
   const inputRef = useRef<HTMLInputElement>(null);
+  const hasSearchInput = searchInput.length > 0;
+  const isSearchActive = useAppSelector((state) => state.app.isSearchActive);
 
   const expandSearchBox = () => {
-    sendIsSearchBoxExpanded(true);
+    getIsSearchBoxExpanded(true);
     inputRef.current?.focus();
   };
 
@@ -28,19 +33,26 @@ const SearchBox = ({ sendIsSearchBoxExpanded, isSearchBoxExpanded }: SearchBoxPr
     setSearchInput(e.target.value);
   };
 
-  const clearSearchInput = useCallback(() => {
-    if (hasSearchInput) {
-      setSearchInput("");
-      inputRef.current?.focus();
-    }
-  }, [hasSearchInput]);
+  const clearSearchInput = () => {
+    setSearchInput("");
+    inputRef.current?.focus();
+  };
 
   /** Effects */
   useEffect(() => {
-    if (!isSearchBoxExpanded) {
+    onSearch(searchInput);
+    if (searchInput.length > 0) {
+      dispatch(setIsSearchActive(true));
+    } else {
+      dispatch(setIsSearchActive(false));
+    }
+  }, [searchInput, onSearch, dispatch]);
+
+  useEffect(() => {
+    if (!isSearchActive) {
       clearSearchInput();
     }
-  }, [isSearchBoxExpanded, clearSearchInput]);
+  }, [isSearchActive]);
 
   /** Markup */
   return (

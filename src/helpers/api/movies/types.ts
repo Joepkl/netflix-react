@@ -16,11 +16,11 @@ type movieType = {
   vote_count: number;
 };
 
-type fetchTrendingMoviesResponseType = {
+type fetchMoviesType = {
   page: number;
   results: movieType[];
   total_pages: number;
   total_results: number;
 };
 
-export type { movieType, fetchTrendingMoviesResponseType };
+export type { movieType, fetchMoviesType };

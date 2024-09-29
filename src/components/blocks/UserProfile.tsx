@@ -40,8 +40,10 @@ const UserProfileBlock = ({
   useEffect(() => {
     if (animated) {
       setTimeout(() => {
-        imgRef.current?.classList.add(...animationClass);
-        textRef.current?.classList.add(...animationClass);
+        const animatedElements = [imgRef, textRef];
+        animatedElements.forEach((item) => {
+          item.current?.classList.add(...animationClass);
+        });
       }, animationDelay);
     }
   });

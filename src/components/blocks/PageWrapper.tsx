@@ -1,5 +1,9 @@
 /** Vendor */
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
+import { twMerge } from "tailwind-merge";
+
+/** Local */
+import { scrollTop } from "@/helpers/generic/scrollTop.tsx";
 
 /** Type */
 type PageWrapperProps = {
@@ -8,6 +12,7 @@ type PageWrapperProps = {
   disablePaddingBottom?: boolean;
   disablePaddingLeft?: boolean;
   disablePaddingRight?: boolean;
+  usedWithHeader?: boolean;
 };
 
 /** Component */
@@ -17,15 +22,24 @@ const PageWrapper = ({
   disablePaddingBottom,
   disablePaddingLeft,
   disablePaddingRight,
+  usedWithHeader = false,
 }: PageWrapperProps) => {
   const paddingTopClass = disablePaddingTop ? "" : "pt-[60px]";
   const paddingBottomClass = disablePaddingBottom ? "" : "pb-[80px]";
   const paddingLeftClass = disablePaddingLeft ? "" : "pl-[30px]";
   const paddingRightClass = disablePaddingRight ? "" : "pr-[30px]";
-  const paddingClasses = `${paddingTopClass} ${paddingBottomClass} ${paddingLeftClass} ${paddingRightClass}`;
+  const minHeightClass = usedWithHeader ? "min-h-[calc(100dvh-502px)]" : "min-h-[100dvh]";
+
+  const classes = twMerge(paddingTopClass, paddingBottomClass, paddingLeftClass, paddingRightClass, minHeightClass);
+
+  /** Effects */
+  useEffect(() => {
+    // Scroll to top of page on inital component mount
+    scrollTop();
+  }, []);
 
   /** Markup */
-  return <section className={`${paddingClasses} min-h-[100dvh]`}>{children}</section>;
+  return <section className={classes}>{children}</section>;
 };
 
 export { PageWrapper };

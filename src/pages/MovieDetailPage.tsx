@@ -7,17 +7,16 @@ import { Header } from "@/components/blocks/Header.tsx";
 import { Heading } from "@/components/ui/Heading.tsx";
 
 /** Component */
-const ManageProfilesPage = () => {
+const MovieDetailPage = () => {
   /** Markup */
   return (
     <>
       <Header />
-      <PageWrapper disablePaddingTop>
+      <PageWrapper disablePaddingTop usedWithHeader>
         <Heading type="h2">Movie detail page</Heading>
-        <p>Add account, delete account, change name, chose profile picture</p>
       </PageWrapper>
     </>
   );
 };
 
-export { ManageProfilesPage };
+export { MovieDetailPage };

@@ -4,28 +4,43 @@ import { useRef, useState, useEffect } from "react";
 /** Local */
 import { useAppSelector } from "@/store/hooks.ts";
 import { useIntersectionObserverHelper } from "@/helpers/generic/useIntersectionObserverHelper.tsx";
+import { useSearchMovies } from "@/helpers/api/movies/fetch.ts";
 
 /** Blocks */
+import { Heading } from "@/components/ui/Heading.tsx";
 import { SearchBox } from "@/components/blocks/SearchBox.tsx";
+import { SearchResults } from "@/components/blocks/SearchResults.tsx";
 
 /** Component */
 const Header = () => {
   const headerRef = useRef<HTMLElement>(null);
   const [isHeaderSticky, setIsHeaderSticky] = useState(false);
   const [isSearchBoxExpanded, setIsSearchBoxExpanded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [fireSearch, setFireSearch] = useState(false);
   const username = useAppSelector((state) => state.app.username);
+  const isSearchActive = useAppSelector((state) => state.app.isSearchActive);
   const stickyHeaderClass = isHeaderSticky ? "sticky top-0 bg-black-transparent backdrop-blur-xl !py-5 z-50" : "";
 
+  // API request for searching movies
+  const { data, error } = useSearchMovies({ query: searchQuery, fireSearch });
+
   const collapseSearchBox = () => {
-    setIsSearchBoxExpanded(false);
+    if (!searchQuery) setIsSearchBoxExpanded(false);
   };
 
-  /** Hooks */
+  const handleSearch = (searchQuery: string) => {
+    setSearchQuery(searchQuery);
+    setFireSearch(true);
+  };
+
+  /** Intersection observer */
   useIntersectionObserverHelper({
     targetRef: headerRef,
     callbackNotIntersecting: () => setIsHeaderSticky(true),
   });
 
+  /** Effects */
   useEffect(() => {
     const handleScrollTop = () => {
       if (window.scrollY <= 5) {
@@ -46,17 +61,26 @@ const Header = () => {
   return (
     <>
       {/* Overlay */}
-      {isSearchBoxExpanded && (
-        <div onClick={collapseSearchBox} onTouchStart={collapseSearchBox} className="fixed inset-0" />
+      {isSearchBoxExpanded && !isSearchActive && (
+        <div onClick={collapseSearchBox} onTouchStart={collapseSearchBox} className="fixed inset-0 z-50" />
       )}
 
+      {/* Search results */}
+      {data && <SearchResults data={data.results} error={error} searchInput={searchQuery} />}
+
       {/* Header */}
-      <header ref={headerRef} className={`${stickyHeaderClass} mb-[40px] py-6 px-[30px] transition-all duration-500`}>
+      <header
+        ref={headerRef}
+        className={`${stickyHeaderClass} mb-[40px] py-6 px-[30px] transition-all duration-500 z-50`}
+      >
         <div className="flex justify-between w-full gap-10 items-center h-10">
-          <h1 className="whitespace-nowrap">For {username}</h1>
+          <Heading type="h1" className="whitespace-nowrap z-50">
+            For {username}
+          </Heading>
           <SearchBox
             isSearchBoxExpanded={isSearchBoxExpanded}
-            sendIsSearchBoxExpanded={(isExpanded) => setIsSearchBoxExpanded(isExpanded)}
+            getIsSearchBoxExpanded={(isExpanded) => setIsSearchBoxExpanded(isExpanded)}
+            onSearch={(input) => handleSearch(input)}
           />
         </div>
       </header>

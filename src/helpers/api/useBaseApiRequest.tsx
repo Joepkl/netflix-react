@@ -15,6 +15,7 @@ type BaseApiRequestType = {
   requestBody?: Record<string, string | number>;
   retryRequest?: boolean;
   showLoading?: boolean;
+  enableInmediateRequest?: boolean;
 };
 
 /**
@@ -34,6 +35,7 @@ type BaseApiRequestType = {
  * @param requestBody - Request body. Should be memoized object to prevent infinite loop.
  * @param retryRequest - Boolean to retry request.
  * @param showLoading - Boolean to show loading spinner.
+ * @param enableInmediateRequest - Boolean to enable inmediate API request.
  */
 
 /** Hook */
@@ -45,6 +47,7 @@ const useBaseApiRequest = ({
   requestBody,
   retryRequest = false,
   showLoading = true,
+  enableInmediateRequest = true,
 }: BaseApiRequestType) => {
   const [data, setData] = useState<unknown>(null);
   const [error, setError] = useState<string | null>(null);
@@ -80,8 +83,8 @@ const useBaseApiRequest = ({
 
   // Watch for manual retry
   useEffect(() => {
-    makeRequest();
-  }, [makeRequest, retryRequest, manuallyRetry]);
+    if (enableInmediateRequest || retryRequest) makeRequest();
+  }, [makeRequest, retryRequest, manuallyRetry, enableInmediateRequest]);
 
   // Function to manually trigger another request
   const retry = () => {

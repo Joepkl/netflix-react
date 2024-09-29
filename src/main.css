@@ -9,6 +9,28 @@
     background-image: linear-gradient(to top, #141414, #0d1b2a);
     background-repeat: no-repeat;
   }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Typography */
+  .h1 {
+    @apply text-2xl lg:text-3xl;
+  }
+
+  .h2 {
+    @apply text-xl lg:text-2xl;
+  }
+
+  .h3 {
+    @apply text-lg lg:text-xl;
+  }
 }
 
 /** General styles */
@@ -18,18 +40,18 @@
   }
 
   h1 {
-    @apply text-2xl lg:text-3xl;
+    @apply h1;
   }
 
   h2 {
-    @apply text-xl lg:text-2xl;
+    @apply h2;
   }
 
   h3,
   h4,
   h5,
   h6 {
-    @apply text-lg lg:text-xl;
+    @apply h3;
   }
 
   p,
