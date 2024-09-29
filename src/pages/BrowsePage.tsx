@@ -9,11 +9,7 @@ import { Button } from "@/components/ui/Button/index.tsx";
 
 /** Component */
 const BrowsePage = () => {
-  const {
-    data: trendingMovieData,
-    error: trendingMovieError,
-    refetch: refetchTrendingMovies,
-  } = useFetchTrendingMovies();
+  const { data: trendingMovieData, error: trendingMovieError, retry: refetchTrendingMovies } = useFetchTrendingMovies();
 
   /** Markup */
   return (
