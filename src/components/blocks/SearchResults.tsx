@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 /** Local */
 import { getMoviePosterUrl } from "@/helpers/generic/getMoviePosterUrl.tsx";
 import { useAppDispatch } from "@/store/hooks.ts";
+import { setResetSearchInput } from "@/store/slices/app.ts";
 
 /** Blocks */
 import { Heading } from "@/components/ui/Heading.tsx";
@@ -21,7 +22,7 @@ const SearchResults = ({ data, error, searchInput }: SearchResultsType) => {
   const dispatch = useAppDispatch();
 
   const resetSearch = () => {
-    // TO-DO: Reset search active state on result click
+    dispatch(setResetSearchInput(true));
   };
 
   /** Markup */
@@ -41,7 +42,7 @@ const SearchResults = ({ data, error, searchInput }: SearchResultsType) => {
                   <li className="flex-none w-[calc(100%/4-12px)] aspect-[115/173] h-fit" key={index}>
                     <Link onClick={resetSearch} to={`/browse/${item.id}`}>
                       <img
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover rounded"
                         src={getMoviePosterUrl(item.poster_path)}
                         alt={item.title}
                       />

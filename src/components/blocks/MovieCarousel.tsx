@@ -31,7 +31,11 @@ const MovieCarousel = ({ title, movies }: MovieCarouselType) => {
             {movies.map((item: movieType, index: number) => (
               <li key={index} className="w-1/4 flex-none aspect-[115/173]">
                 <Link to={`/browse/${item.id}`}>
-                  <img className="w-full h-full object-cover" src={getMoviePosterUrl(item.poster_path)} alt="Poster" />
+                  <img
+                    className="w-full h-full object-cover rounded"
+                    src={getMoviePosterUrl(item.poster_path)}
+                    alt="Poster"
+                  />
                 </Link>
               </li>
             ))}

@@ -6,7 +6,7 @@ import { ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks.ts";
 import SearchIcon from "@/assets/icons/search_white.svg";
 import CrossIcon from "@/assets/icons/cross_white.svg";
-import { setIsSearchActive } from "@/store/slices/app.ts";
+import { setIsSearchActive, setResetSearchInput } from "@/store/slices/app.ts";
 
 /** Type */
 type SearchBoxPropsType = {
@@ -23,6 +23,7 @@ const SearchBox = ({ getIsSearchBoxExpanded, onSearch, isSearchBoxExpanded }: Se
   const inputRef = useRef<HTMLInputElement>(null);
   const hasSearchInput = searchInput.length > 0;
   const isSearchActive = useAppSelector((state) => state.app.isSearchActive);
+  const resetSearchInput = useAppSelector((state) => state.app.resetSearchInput);
 
   const expandSearchBox = () => {
     getIsSearchBoxExpanded(true);
@@ -41,18 +42,27 @@ const SearchBox = ({ getIsSearchBoxExpanded, onSearch, isSearchBoxExpanded }: Se
   /** Effects */
   useEffect(() => {
     onSearch(searchInput);
-    if (searchInput.length > 0) {
+    const hasSearchInput = searchInput.length > 0;
+
+    if (hasSearchInput && !isSearchActive) {
       dispatch(setIsSearchActive(true));
-    } else {
+    } else if (!hasSearchInput && isSearchActive) {
       dispatch(setIsSearchActive(false));
     }
-  }, [searchInput, onSearch, dispatch]);
+  }, [searchInput, onSearch, dispatch, isSearchActive]);
 
   useEffect(() => {
+    // Clear input
     if (!isSearchActive) {
       clearSearchInput();
     }
-  }, [isSearchActive]);
+    // Hard reset
+    if (resetSearchInput) {
+      clearSearchInput();
+      getIsSearchBoxExpanded(false);
+      dispatch(setResetSearchInput(false));
+    }
+  }, [isSearchActive, resetSearchInput, dispatch, getIsSearchBoxExpanded]);
 
   /** Markup */
   return (

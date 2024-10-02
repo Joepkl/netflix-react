@@ -8,6 +8,7 @@ export const appReducer = createSlice({
     isLoading: false,
     isAuthenticated: false,
     isSearchActive: false,
+    resetSearchInput: false,
     username: "",
   },
   reducers: {
@@ -20,6 +21,9 @@ export const appReducer = createSlice({
     setIsSearchActive: (state, action: PayloadAction<boolean>) => {
       state.isSearchActive = action.payload;
     },
+    setResetSearchInput: (state, action: PayloadAction<boolean>) => {
+      state.resetSearchInput = action.payload;
+    },
     setUserProfile: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
     },
@@ -27,6 +31,7 @@ export const appReducer = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setIsLoading, setIsAuthenticated, setIsSearchActive, setUserProfile } = appReducer.actions;
+export const { setIsLoading, setIsAuthenticated, setIsSearchActive, setResetSearchInput, setUserProfile } =
+  appReducer.actions;
 
 export default appReducer.reducer;

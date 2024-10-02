@@ -16,7 +16,7 @@ type ButtonType = {
 /** Component */
 const Button = ({ text, icon, type = "button", variant = "primary", route = "/", onClick }: ButtonType) => {
   // Classes
-  const baseClass = "px-4 py-2 rounded-md";
+  const baseClass = "px-4 py-2 rounded-md w-fit";
   const variantClasses = {
     primary: "bg-red-main text-white",
     secondary: "bg-transparent text-white border border-white",
