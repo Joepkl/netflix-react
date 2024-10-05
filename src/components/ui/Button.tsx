@@ -8,18 +8,28 @@ type ButtonType = {
   text?: string;
   icon?: string;
   type?: "button" | "link";
-  variant?: "primary" | "secondary" | "tertiary";
+  variant?: "primary" | "secondary" | "outline" | "tertiary";
+  iconPosition?: "left" | "right";
   route?: string;
   onClick?: () => void;
 };
 
 /** Component */
-const Button = ({ text, icon, type = "button", variant = "primary", route = "/", onClick }: ButtonType) => {
+const Button = ({
+  text,
+  icon,
+  type = "button",
+  variant = "primary",
+  iconPosition = "left",
+  route = "/",
+  onClick,
+}: ButtonType) => {
   // Classes
   const baseClass = "px-4 py-2 rounded-md w-fit";
   const variantClasses = {
-    primary: "bg-red-main text-white",
-    secondary: "bg-transparent text-white border border-white",
+    primary: "bg-white-main text-black-main font-bold",
+    secondary: "bg-grey-main text-white-main font-bold",
+    outline: "bg-transparent text-white-main border border-white-main font-bold",
     tertiary: "underline text-white px-0 py-0",
   };
   const elementClasses = twMerge(baseClass, variantClasses[variant]);
@@ -28,10 +38,10 @@ const Button = ({ text, icon, type = "button", variant = "primary", route = "/",
   const elementType = type === "link" ? Link : "button";
 
   const elementContent = (
-    <>
+    <div className={`${iconPosition === "right" ? "flex-row-reverse" : ""} flex items-center gap-2`}>
+      {icon && <img className="h-4 w-fit" src={icon} alt="Icon" />}
       {text}
-      {icon && <img src={icon} alt="Icon" />}
-    </>
+    </div>
   );
 
   let element;

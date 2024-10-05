@@ -6,12 +6,14 @@ import { useAppSelector } from "@/store/hooks.ts";
 import { useFetchTrendingMovies } from "@/helpers/api/movies/fetch.ts";
 import { movieType } from "@/helpers/api/movies/types.ts";
 import { getMoviePosterUrl } from "@/helpers/generic/getMoviePosterUrl.tsx";
+import PlayIcon from "@/assets/icons/play.svg";
 
 /** Blocks */
 import { PageWrapper } from "@/components/blocks/PageWrapper.tsx";
 import { Header } from "@/components/blocks/Header.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { MovieCarousel } from "@/components/blocks/MovieCarousel.tsx";
+import { VideoPlayer } from "@/components/blocks/VideoPlayer.tsx";
 
 /** Component */
 const BrowsePage = () => {
@@ -56,7 +58,7 @@ const BrowsePage = () => {
           <div>
             {/* Highlight movie */}
             {highlightMovie && (
-              <div className="mb-6">
+              <section className="mb-6">
                 <img className="rounded" src={getMoviePosterUrl(highlightMovie.poster_path)} />
                 {/* <div className="flex gap-4">
                   <Button text="Play" />
@@ -64,25 +66,28 @@ const BrowsePage = () => {
                 </div> */}
 
                 <div className="flex flex-col gap-2">
-                  <Button text="primary" variant="primary" />
+                  <Button text="Play" icon={PlayIcon} variant="primary" />
                   <Button text="secondary" variant="secondary" />
+                  <Button text="outline" variant="outline" />
                   <Button text="tertiary" variant="tertiary" />
                 </div>
-              </div>
+              </section>
             )}
+
+            <VideoPlayer poster={getMoviePosterUrl(highlightMovie?.poster_path)} />
 
             {/* Movie carousels */}
             <section className="flex flex-col gap-6">
-              <MovieCarousel title="Trending movies" movies={updatedTrendingMovieData as movieType[]} />
-              <MovieCarousel title="Top picks for you" movies={topPicksMovieData?.results} />
+              <MovieCarousel title="Trending Movies" movies={updatedTrendingMovieData as movieType[]} />
+              <MovieCarousel title="Top Picks for You" movies={topPicksMovieData?.results} />
             </section>
 
             {/* Error */}
             {hasFetchError && (
-              <div>
+              <section>
                 <p className="mb-4">Something went wrong while retrieving movie data, please try again.</p>
                 <Button text="Try again" variant="primary" onClick={() => handleRetry()} />
-              </div>
+              </section>
             )}
           </div>
         )}

@@ -17,7 +17,7 @@ export default {
         // Main
         "red-main": "#E50914",
         "white-main": "#fff",
-        "grey-main": "#403d39",
+        "grey-main": "#505050",
         "blue-main": "#0d1b2a",
         "black-main": "#000000",
         // Background
