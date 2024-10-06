@@ -10,9 +10,9 @@ import { setResetSearchInput } from "@/store/slices/app.ts";
 import { Heading } from "@/components/ui/Heading.tsx";
 
 /** Type */
-import { movieType } from "@/helpers/api/movies/types.ts";
+import { MovieType } from "@/helpers/api/movies/types.ts";
 type SearchResultsType = {
-  data: movieType[];
+  data: MovieType[];
   error: string | null;
   searchInput: string;
 };

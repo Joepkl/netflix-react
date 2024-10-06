@@ -5,9 +5,9 @@ import { useAppDispatch } from "@/store/hooks.ts";
 import AddIcon from "@/assets/icons/add_white.svg";
 
 /** Blocks */
-import { LogoAnimation } from "@/components/blocks/LogoAnimation.tsx";
-import { PageWrapper } from "@/components/blocks/PageWrapper.tsx";
-import { UserProfileBlock } from "@/components/blocks/UserProfile.tsx";
+import { LogoAnimation } from "@/components/blocks/generic/LogoAnimation.tsx";
+import { PageWrapper } from "@/components/blocks/generic/PageWrapper.tsx";
+import { UserProfileBlock } from "@/components/blocks/generic/UserProfileBlock.tsx";
 
 /** Component */
 const LoginPage = () => {

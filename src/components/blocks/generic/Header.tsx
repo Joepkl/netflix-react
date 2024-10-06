@@ -8,8 +8,8 @@ import { useSearchMovies } from "@/helpers/api/movies/fetch.ts";
 
 /** Blocks */
 import { Heading } from "@/components/ui/Heading.tsx";
-import { SearchBox } from "@/components/blocks/SearchBox.tsx";
-import { SearchResults } from "@/components/blocks/SearchResults.tsx";
+import { SearchBox } from "@/components/blocks/generic/SearchBox.tsx";
+import { SearchResults } from "@/components/blocks/movies/SearchResults.tsx";
 
 /** Component */
 const Header = () => {

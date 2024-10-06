@@ -28,7 +28,7 @@ type BaseApiRequestType = {
  *   method: "get",
  * });
  *
- * @param url - API endpoint.
+ * @param url - URL or API endpoint.
  * @param method - HTTP method.
  * @param axiosInstance - Axios instance.
  * @param requestHeaders - Request headers. Should be memoized object to prevent infinite loop.

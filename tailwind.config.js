@@ -20,6 +20,8 @@ export default {
         "grey-main": "#505050",
         "blue-main": "#0d1b2a",
         "black-main": "#000000",
+        // Light
+        "grey-light": "#9A9A9A",
         // Background
         "black-transparent": "#000000b3",
         "bg-dark": "#141414",

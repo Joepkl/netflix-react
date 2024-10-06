@@ -21,15 +21,15 @@
 
   /* Typography */
   .h1 {
-    @apply text-2xl lg:text-3xl;
+    @apply text-2xl lg:text-3xl font-semibold;
   }
 
   .h2 {
-    @apply text-xl lg:text-2xl;
+    @apply text-xl lg:text-2xl font-semibold;
   }
 
   .h3 {
-    @apply text-lg lg:text-xl;
+    @apply text-lg lg:text-xl font-semibold;
   }
 }
 

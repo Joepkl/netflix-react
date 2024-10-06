@@ -2,8 +2,8 @@
 import { useAppSelector, useAppDispatch } from "@/store/hooks.ts";
 
 /** Blocks */
-import { PageWrapper } from "@/components/blocks/PageWrapper.tsx";
-import { Header } from "@/components/blocks/Header.tsx";
+import { PageWrapper } from "@/components/blocks/generic/PageWrapper.tsx";
+import { Header } from "@/components/blocks/generic/Header.tsx";
 import { Heading } from "@/components/ui/Heading.tsx";
 
 /** Component */

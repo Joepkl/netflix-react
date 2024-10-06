@@ -4,30 +4,33 @@ import { useEffect, useState } from "react";
 /** Local */
 import { useAppSelector } from "@/store/hooks.ts";
 import { useFetchTrendingMovies } from "@/helpers/api/movies/fetch.ts";
-import { movieType } from "@/helpers/api/movies/types.ts";
+import { MovieType } from "@/helpers/api/movies/types.ts";
 import { getMoviePosterUrl } from "@/helpers/generic/getMoviePosterUrl.tsx";
 import PlayIcon from "@/assets/icons/play.svg";
 
 /** Blocks */
-import { PageWrapper } from "@/components/blocks/PageWrapper.tsx";
-import { Header } from "@/components/blocks/Header.tsx";
+import { PageWrapper } from "@/components/blocks/generic/PageWrapper.tsx";
+import { Header } from "@/components/blocks/generic/Header.tsx";
 import { Button } from "@/components/ui/Button.tsx";
-import { MovieCarousel } from "@/components/blocks/MovieCarousel.tsx";
-import { VideoPlayer } from "@/components/blocks/VideoPlayer.tsx";
+import { MovieCarousel } from "@/components/blocks/movies/MovieCarousel.tsx";
 
 /** Component */
 const BrowsePage = () => {
   const isSearchActive = useAppSelector((state) => state.app.isSearchActive);
-  const [highlightMovie, setHighlightMovie] = useState<movieType | null>(null);
-  const [updatedTrendingMovieData, setUpdatedTrendingMovieData] = useState<movieType[] | null>(null);
+  const [highlightMovie, setHighlightMovie] = useState<MovieType | null>(null);
+  const [updatedTrendingMovieData, setUpdatedTrendingMovieData] = useState<MovieType[] | null>(null);
 
   /** API requests */
-  const { data: trendingMovieData, error: trendingMovieError, retry: refetchTrendingMovies } = useFetchTrendingMovies();
+  const {
+    data: trendingMovieData,
+    error: trendingMovieError,
+    retry: refetchTrendingMovies,
+  } = useFetchTrendingMovies({ page: 1 });
   const {
     data: topPicksMovieData,
     error: topPicksMovieError,
     retry: refetchTopPicksMovies,
-  } = useFetchTrendingMovies(2);
+  } = useFetchTrendingMovies({ page: 2 });
 
   const handleRetry = () => {
     refetchTrendingMovies();
@@ -74,11 +77,9 @@ const BrowsePage = () => {
               </section>
             )}
 
-            <VideoPlayer poster={getMoviePosterUrl(highlightMovie?.poster_path)} />
-
             {/* Movie carousels */}
             <section className="flex flex-col gap-6">
-              <MovieCarousel title="Trending Movies" movies={updatedTrendingMovieData as movieType[]} />
+              <MovieCarousel title="Trending Movies" movies={updatedTrendingMovieData as MovieType[]} />
               <MovieCarousel title="Top Picks for You" movies={topPicksMovieData?.results} />
             </section>
 

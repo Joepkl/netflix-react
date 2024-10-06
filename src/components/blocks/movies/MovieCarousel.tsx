@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { getMoviePosterUrl } from "@/helpers/generic/getMoviePosterUrl.tsx";
 
 /** Blocks */
-import { Heading } from "../ui/Heading.tsx";
+import { Heading } from "../../ui/Heading.tsx";
 
 /** Type */
 import { movieType } from "@/helpers/api/movies/types.ts";

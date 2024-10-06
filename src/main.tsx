@@ -11,7 +11,7 @@ import { router } from "@/router/router.tsx";
 /** Local */
 import "@/main.css";
 import { store, persistor } from "@/store/store.ts";
-import { SpinningLoader } from "@/components/blocks/SpinningLoader.tsx";
+import { SpinningLoader } from "@/components/blocks/generic/SpinningLoader.tsx";
 
 /** Root */
 createRoot(document.getElementById("root") as HTMLElement).render(
