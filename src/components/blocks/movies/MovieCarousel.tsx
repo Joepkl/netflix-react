@@ -8,10 +8,10 @@ import { getMoviePosterUrl } from "@/helpers/generic/getMoviePosterUrl.tsx";
 import { Heading } from "../../ui/Heading.tsx";
 
 /** Type */
-import { movieType } from "@/helpers/api/movies/types.ts";
+import { MovieType } from "@/helpers/api/movies/types.ts";
 type MovieCarouselType = {
   title?: string;
-  movies: movieType[];
+  movies: MovieType[];
 };
 
 /** Component */
@@ -28,7 +28,7 @@ const MovieCarousel = ({ title, movies }: MovieCarouselType) => {
 
           {/* Carousel */}
           <ul className="flex gap-4 overflow-x-scroll whitespace-nowrap scrollbar-hide">
-            {movies.map((item: movieType, index: number) => (
+            {movies.map((item: MovieType, index: number) => (
               <li key={index} className="w-1/4 flex-none aspect-[115/173]">
                 <Link to={`/browse/${item.id}`}>
                   <img

@@ -11,14 +11,14 @@ import { Heading } from "@/components/ui/Heading.tsx";
 
 /** Type */
 import { MovieType } from "@/helpers/api/movies/types.ts";
-type SearchResultsType = {
+type MovieSearchResultsType = {
   data: MovieType[];
   error: string | null;
   searchInput: string;
 };
 
 /** Component */
-const SearchResults = ({ data, error, searchInput }: SearchResultsType) => {
+const MovieSearchResults = ({ data, error, searchInput }: MovieSearchResultsType) => {
   const dispatch = useAppDispatch();
 
   const resetSearch = () => {
@@ -63,4 +63,4 @@ const SearchResults = ({ data, error, searchInput }: SearchResultsType) => {
   );
 };
 
-export { SearchResults };
+export { MovieSearchResults };

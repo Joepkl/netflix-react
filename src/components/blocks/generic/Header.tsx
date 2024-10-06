@@ -9,7 +9,7 @@ import { useSearchMovies } from "@/helpers/api/movies/fetch.ts";
 /** Blocks */
 import { Heading } from "@/components/ui/Heading.tsx";
 import { SearchBox } from "@/components/blocks/generic/SearchBox.tsx";
-import { SearchResults } from "@/components/blocks/movies/SearchResults.tsx";
+import { MovieSearchResults } from "@/components/blocks/movies/MovieSearchResults.tsx";
 
 /** Component */
 const Header = () => {
@@ -66,7 +66,7 @@ const Header = () => {
       )}
 
       {/* Search results */}
-      {data && <SearchResults data={data.results} error={error} searchInput={searchQuery} />}
+      {data && <MovieSearchResults data={data.results} error={error} searchInput={searchQuery} />}
 
       {/* Header */}
       <header
