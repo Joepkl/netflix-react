@@ -29,7 +29,7 @@ const MovieCarousel = ({ title, movies }: MovieCarouselType) => {
           {/* Carousel */}
           <ul className="flex gap-4 overflow-x-scroll whitespace-nowrap scrollbar-hide">
             {movies.map((item: MovieType, index: number) => (
-              <li key={index} className="w-1/4 flex-none aspect-[115/173]">
+              <li key={index} className="w-1/4 md:w-1/5 lg:w-1/6 flex-none aspect-[115/173]">
                 <Link to={`/browse/${item.id}`}>
                   <img
                     className="w-full h-full object-cover rounded"

@@ -10,11 +10,11 @@ type UserType = {
 };
 
 /** Constant */
-const Users = [
+const USERS = [
   { username: "Mary", profilePicture: ProfileImage1 },
   { username: "John", profilePicture: ProfileImage2 },
   { username: "William", profilePicture: ProfileImage3 },
 ];
 
-export { Users };
+export { USERS };
 export type { UserType };

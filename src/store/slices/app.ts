@@ -10,6 +10,7 @@ export const appReducer = createSlice({
     isSearchActive: false,
     resetSearchInput: false,
     username: "",
+    isPlayingDetailPageVideo: false,
   },
   reducers: {
     setIsLoading: (state, action: PayloadAction<boolean>) => {
@@ -27,11 +28,20 @@ export const appReducer = createSlice({
     setUserProfile: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
     },
+    setIsPlayingDetailPageVideo: (state, action: PayloadAction<boolean>) => {
+      state.isPlayingDetailPageVideo = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setIsLoading, setIsAuthenticated, setIsSearchActive, setResetSearchInput, setUserProfile } =
-  appReducer.actions;
+export const {
+  setIsLoading,
+  setIsAuthenticated,
+  setIsSearchActive,
+  setResetSearchInput,
+  setUserProfile,
+  setIsPlayingDetailPageVideo,
+} = appReducer.actions;
 
 export default appReducer.reducer;

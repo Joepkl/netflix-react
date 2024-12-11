@@ -1,9 +1,10 @@
 /** Vendor */
-import { useEffect, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 /** Local */
-import { useAppSelector } from "@/store/hooks.ts";
+import { useAppSelector, useAppDispatch } from "@/store/hooks.ts";
+import { setIsPlayingDetailPageVideo } from "@/store/slices/app.ts";
 import { useFetchMovieDetails, useFetchMovieReleaseDates } from "@/helpers/api/movies/fetch.ts";
 import { getMoviePosterUrl } from "@/helpers/generic/getMoviePosterUrl.tsx";
 
@@ -11,7 +12,7 @@ import { getMoviePosterUrl } from "@/helpers/generic/getMoviePosterUrl.tsx";
 import { PageWrapper } from "@/components/blocks/generic/PageWrapper.tsx";
 import { Header } from "@/components/blocks/generic/Header.tsx";
 import { Heading } from "@/components/ui/Heading.tsx";
-import { VideoPlayer } from "@/components/blocks/generic/VideoPlayer.tsx";
+import { VideoPlayer } from "@/components/blocks/movies/VideoPlayer.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { MovieCast } from "@/components/blocks/movies/MovieCast.tsx";
 
@@ -19,9 +20,13 @@ import { MovieCast } from "@/components/blocks/movies/MovieCast.tsx";
 const MovieDetailPage = () => {
   const { id } = useParams();
   const movieId = id ? parseInt(id) : null;
-  const [relevantCertification, setRelevantCertification] = useState("");
+
+  const dispatch = useAppDispatch();
+
   const isSearchActive = useAppSelector((state) => state.app.isSearchActive);
-  const isLoading = useAppSelector((state) => state.app.isLoading);
+  const isPlayingDetailPageVideo = useAppSelector((state) => state.app.isPlayingDetailPageVideo);
+
+  const [videoStarted, setVideoStarted] = useState(false);
 
   /** API calls */
   const {
@@ -33,22 +38,24 @@ const MovieDetailPage = () => {
 
   /** Effects */
   useEffect(() => {
-    if (movieReleaseData) {
-      const getRelevantCertification = () => {
-        for (const item of movieReleaseData.results) {
-          const countryCode = item.iso_3166_1;
-          const certification = item.release_dates[0].certification;
-
-          if (["NL", "BE", "DE"].includes(countryCode) && certification) {
-            setRelevantCertification(certification);
-            break;
-          }
-        }
-      };
-
-      getRelevantCertification();
+    if (isPlayingDetailPageVideo) {
+      setVideoStarted(true);
+      dispatch(setIsPlayingDetailPageVideo(false));
     }
-  }, [movieReleaseData, relevantCertification]);
+  }, [isPlayingDetailPageVideo, dispatch]);
+
+  /** Memo */
+  const relevantCertification = useMemo(() => {
+    if (!movieReleaseData) return "";
+    for (const item of movieReleaseData.results) {
+      const countryCode = item.iso_3166_1;
+      const certification = item.release_dates[0]?.certification;
+      if (["NL", "BE", "DE"].includes(countryCode) && certification) {
+        return certification;
+      }
+    }
+    return "";
+  }, [movieReleaseData]);
 
   /** Helpers */
   const renderMovieCertification = (certification: string) => {
@@ -71,14 +78,20 @@ const MovieDetailPage = () => {
     <>
       <Header />
       {!isSearchActive && movieDetails && (
-        <VideoPlayer file="/wb_intro.mp4" poster={getMoviePosterUrl(movieDetails.poster_path)} />
+        <VideoPlayer
+          file="/wb_intro.mp4"
+          poster={getMoviePosterUrl(movieDetails.poster_path)}
+          autoplay={videoStarted}
+          enableFullScreen
+          className="w-full aspect-video max-h-[500px]"
+        />
       )}
 
       <PageWrapper disablePaddingTop usedWithHeader>
         {/* Movie details */}
         {!isSearchActive && movieDetails && (
           <>
-            <section className="mb-10 mt-2">
+            <section className="mb-10 sm:mt-5 mt-2">
               {/* Top bar */}
               <ul className="flex flex-wrap items-center gap-x-4 gap-y-1">
                 <li>{movieDetails.release_date}</li>

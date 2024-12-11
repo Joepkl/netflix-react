@@ -71,7 +71,7 @@ const Header = () => {
       {/* Header */}
       <header
         ref={headerRef}
-        className={`${stickyHeaderClass} mb-[40px] py-6 px-[30px] transition-all duration-500 z-50`}
+        className={`${stickyHeaderClass} mb-[30px] py-6 px-[30px] transition-all duration-500 z-50`}
       >
         <div className="flex justify-between w-full gap-10 items-center h-10">
           <Heading type="h1" className="whitespace-nowrap z-50">

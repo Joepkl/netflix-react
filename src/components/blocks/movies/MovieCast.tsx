@@ -21,13 +21,13 @@ const MovieCast = ({ credits }: { credits: MovieCreditsType }) => {
 
   /** Effects */
   useEffect(() => {
-    if (castStringRef.current) {
-      // More than 1 line or more than max width.
-      if (castStringRef.current.offsetHeight > 24) {
-        setIsTruncated(true);
-      } else {
-        setIsTruncated(castStringRef.current.offsetWidth > 380);
-      }
+    if (!castStringRef.current) return;
+
+    // More than 1 line or more than max width.
+    if (castStringRef.current.offsetHeight > 24) {
+      setIsTruncated(true);
+    } else {
+      setIsTruncated(castStringRef.current.offsetWidth > 380);
     }
   }, []);
 
