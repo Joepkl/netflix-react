@@ -37,7 +37,8 @@ const Button = ({
   onClick,
 }: ButtonType) => {
   // Classes
-  const baseClass = "px-4 py-2 rounded-md w-fit flex items-center justify-center whitespace-nowrap";
+  const baseClass =
+    "px-4 py-2 rounded-md w-fit flex items-center justify-center whitespace-nowrap hover:opacity-60 transition-all duration-400";
   const variantClasses = {
     primary: "bg-white-main text-black-main font-bold",
     secondary: "bg-grey-main text-white-main font-bold",

@@ -23,7 +23,7 @@ const MovieCast = ({ credits }: { credits: MovieCreditsType }) => {
   useEffect(() => {
     if (!castStringRef.current) return;
 
-    // More than 1 line or more than max width.
+    // Trunacte if more than 1 line or more than max width.
     if (castStringRef.current.offsetHeight > 24) {
       setIsTruncated(true);
     } else {
@@ -35,13 +35,13 @@ const MovieCast = ({ credits }: { credits: MovieCreditsType }) => {
   return (
     <section className="flex-col gap-2 text-grey-light">
       <div className="flex gap-2">
-        <p ref={castStringRef} className={isTruncated ? "truncate max-w-[380px]" : ""}>
+        <p ref={castStringRef} className={isTruncated ? "truncate max-w-[380px] lg:max-w-[600px]" : ""}>
           Cast: {castString}.
         </p>
         {isTruncated && <Button onClick={handleShowAll} text="more" variant="tertiary" />}
       </div>
 
-      {director && <p className={isTruncated ? "" : "mt-4"}>Director: {director.name}</p>}
+      {director && <p className={isTruncated ? "" : "mt-2"}>Director: {director.name}</p>}
     </section>
   );
 };

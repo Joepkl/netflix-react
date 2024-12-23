@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/store/hooks.ts";
 import { setIsPlayingDetailPageVideo } from "@/store/slices/app.ts";
 import { useFetchMovieDetails, useFetchMovieReleaseDates } from "@/helpers/api/movies/fetch.ts";
-import { getMoviePosterUrl } from "@/helpers/generic/getMoviePosterUrl.tsx";
+import { constructMoviePosterUrl } from "@/helpers/generic/moviePoster.tsx";
 
 /** Blocks */
 import { PageWrapper } from "@/components/blocks/generic/PageWrapper.tsx";
@@ -20,13 +20,11 @@ import { MovieCast } from "@/components/blocks/movies/MovieCast.tsx";
 const MovieDetailPage = () => {
   const { id } = useParams();
   const movieId = id ? parseInt(id) : null;
-
   const dispatch = useAppDispatch();
-
   const isSearchActive = useAppSelector((state) => state.app.isSearchActive);
   const isPlayingDetailPageVideo = useAppSelector((state) => state.app.isPlayingDetailPageVideo);
-
   const [videoStarted, setVideoStarted] = useState(false);
+  const [videoLight, setVideoLight] = useState("");
 
   /** API calls */
   const {
@@ -43,6 +41,26 @@ const MovieDetailPage = () => {
       dispatch(setIsPlayingDetailPageVideo(false));
     }
   }, [isPlayingDetailPageVideo, dispatch]);
+
+  useEffect(() => {
+    const updateVideoLight = () => {
+      if (!movieDetails) return;
+
+      const screenWidth = window.innerWidth;
+      if (screenWidth < 768) {
+        setVideoLight(constructMoviePosterUrl({ path: movieDetails.poster_path, size: "original" }));
+      } else {
+        setVideoLight(constructMoviePosterUrl({ path: movieDetails.backdrop_path, size: "original" }));
+      }
+    };
+
+    updateVideoLight();
+    window.addEventListener("resize", updateVideoLight);
+
+    return () => {
+      window.removeEventListener("resize", updateVideoLight);
+    };
+  }, [movieDetails]);
 
   /** Memo */
   const relevantCertification = useMemo(() => {
@@ -80,7 +98,7 @@ const MovieDetailPage = () => {
       {!isSearchActive && movieDetails && (
         <VideoPlayer
           file="/wb_intro.mp4"
-          poster={getMoviePosterUrl(movieDetails.poster_path)}
+          poster={videoLight}
           autoplay={videoStarted}
           enableFullScreen
           className="w-full aspect-video max-h-[500px]"

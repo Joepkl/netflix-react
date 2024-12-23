@@ -19,6 +19,7 @@
     "react-router-dom": "^6.26.2",
     "redux-persist": "^6.0.0",
     "screenfull": "^6.0.2",
+    "swiper": "^11.1.15",
     "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
