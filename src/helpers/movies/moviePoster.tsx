@@ -1,3 +1,6 @@
+/** Vendor */
+import { twMerge } from "tailwind-merge";
+
 /** Types */
 type constructMoviePosterUrlType = {
   path: string;
@@ -10,6 +13,7 @@ type renderMoviePosterType = {
   posterSize?: 500 | 780 | "original";
   backdropSize?: 300 | 780 | 1280 | "original";
   breakpoint?: "sm" | "md" | "lg" | "xl" | "2xl";
+  dataProperty?: { [key: string]: string | number };
   className?: string;
 };
 
@@ -25,22 +29,27 @@ const renderMoviePoster = ({
   posterSize = 500,
   backdropSize = 780,
   breakpoint = "md",
+  dataProperty = { key: "", value: "" },
   className = "",
 }: renderMoviePosterType) => {
+  const baseClasses = "w-full h-full object-cover object-top";
+
   return (
     <>
       {/* Vertical poster */}
       <img
-        className={`${className} ${breakpoint}:hidden`}
+        className={twMerge(baseClasses, className, `${breakpoint}:hidden`)}
         src={constructMoviePosterUrl({ path: posterPath, size: posterSize })}
         alt="Movie poster"
+        {...(dataProperty.key && { [`data-${dataProperty.key}`]: dataProperty.value })}
       />
 
-      {/* Horizontal poster */}
+      {/* Horizontal backdrop */}
       <img
-        className={`${className} hidden ${breakpoint}:block`}
+        className={twMerge(baseClasses, className, `hidden ${breakpoint}:block`)}
         src={constructMoviePosterUrl({ path: backdropPath, size: backdropSize })}
-        alt="Movie poster"
+        alt="Movie backdrop"
+        {...(dataProperty.key && { [`data-${dataProperty.key}`]: dataProperty.value })}
       />
     </>
   );

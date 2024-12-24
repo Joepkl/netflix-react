@@ -1,15 +1,24 @@
 /** @type {import('tailwindcss').Config} */
+const screens = {
+  xsm: "400px",
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1280px",
+  "2xl": "1536px",
+  "3xl": "2000px",
+};
+
+const safelist = [
+  ...Object.keys(screens).map((el) => `${el}:hidden ${el}:block`),
+  ...Object.keys(screens).map((el) => `${el}:block`),
+];
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  safelist,
   theme: {
-    screens: {
-      xsm: "400px",
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
-    },
+    screens,
     extend: {
       fontFamily: {
         sans: ["Verdana", "Geneva", "Tahoma", "sans-serif"],

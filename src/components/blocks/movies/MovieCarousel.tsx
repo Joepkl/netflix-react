@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 
 /** Local */
-import { constructMoviePosterUrl } from "@/helpers/generic/moviePoster.tsx";
+import { renderMoviePoster } from "@/helpers/movies/moviePoster.tsx";
 
 /** Blocks */
-import { Heading } from "../../ui/Heading.tsx";
+import { Heading } from "@/components/ui/Heading.tsx";
+import { InfoBox } from "@/components/blocks/movies/InfoBox.tsx";
 
 /** Type */
 import { MovieType } from "@/helpers/api/movies/types.ts";
@@ -17,25 +18,25 @@ type MovieCarouselType = {
   title?: string;
   animateIn?: boolean;
   animationDelay?: number;
+  enableInfoBox?: boolean;
 };
 
 /** Component */
-const MovieCarousel = ({ movies, title, animateIn, animationDelay = 0 }: MovieCarouselType) => {
+const MovieCarousel = ({ movies, title, animateIn, animationDelay = 0, enableInfoBox = true }: MovieCarouselType) => {
   const swiperContainerRef = useRef<null | HTMLDivElement>(null);
   const [isSwiperLoaded, setIsSwiperLoaded] = useState(false);
 
+  /** Effects */
   useEffect(() => {
-    if (!animateIn) return;
+    if (!animateIn || !isSwiperLoaded || !swiperContainerRef.current) return;
+
+    const images = swiperContainerRef.current.querySelectorAll("img");
 
     const amimateIn = () => {
-      if (!isSwiperLoaded || !swiperContainerRef.current) return;
-
-      const images = swiperContainerRef.current.querySelectorAll("img");
-
       for (let i = 0; i < images.length; i++) {
         setTimeout(() => {
           images[i].classList.add("opacity-100");
-        }, i * 100);
+        }, i * 40);
       }
     };
 
@@ -58,15 +59,20 @@ const MovieCarousel = ({ movies, title, animateIn, animationDelay = 0 }: MovieCa
           {/* Carousel */}
           <Swiper slidesPerView={"auto"} spaceBetween={16} onSwiper={() => setIsSwiperLoaded(true)}>
             {movies.map((item: MovieType, index: number) => (
-              <SwiperSlide key={index} className="w-1/4 lg:w-1/5 flex-none aspect-[115/173] md:aspect-video">
+              <SwiperSlide key={index} className="w-1/4 lg:h-[210px] group aspect-[115/173] lg:w-fit md:aspect-[16/10]">
+                {/* Info box */}
+                {enableInfoBox && <InfoBox movieData={item} />}
+
+                {/* Poster */}
                 <Link to={`/browse/${item.id}`}>
-                  <img
-                    className={`${
-                      animateIn ? "opacity-0 transition-all duration-700" : ""
-                    } w-full h-full object-cover rounded`}
-                    src={constructMoviePosterUrl({ path: item.poster_path })}
-                    alt="Poster"
-                  />
+                  {renderMoviePoster({
+                    posterPath: item.poster_path,
+                    backdropPath: item.backdrop_path,
+                    posterSize: 500,
+                    backdropSize: 780,
+                    dataProperty: { key: "image-index", value: index },
+                    className: `${animateIn ? "opacity-0 transition-all duration-700" : ""} rounded`,
+                  })}
                 </Link>
               </SwiperSlide>
             ))}

@@ -2,7 +2,7 @@
 import { useAppDispatch } from "@/store/hooks.ts";
 import { setIsPlayingDetailPageVideo } from "@/store/slices/app.ts";
 import { MovieType } from "@/helpers/api/movies/types.ts";
-import { renderMoviePoster } from "@/helpers/generic/moviePoster.tsx";
+import { renderMoviePoster } from "@/helpers/movies/moviePoster.tsx";
 import PlayIcon from "@/assets/icons/play.svg";
 import InfoIcon from "@/assets/icons/info_white.svg";
 
@@ -28,8 +28,7 @@ const HighlightMovie = ({ highlightMovieData }: { highlightMovieData: MovieType 
         posterSize: "original",
         backdropSize: "original",
         breakpoint: "sm",
-        className:
-          "rounded max-h-[500px] md:max-h-[400px] lg:max-h-[500px] sm:aspect-video object-cover sm:rounded-none",
+        className: "rounded max-h-[500px] md:max-h-[400px] lg:max-h-[500px] sm:aspect-video sm:rounded-none",
       })}
 
       {/* Overlay */}

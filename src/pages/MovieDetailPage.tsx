@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/store/hooks.ts";
 import { setIsPlayingDetailPageVideo } from "@/store/slices/app.ts";
 import { useFetchMovieDetails, useFetchMovieReleaseDates } from "@/helpers/api/movies/fetch.ts";
-import { constructMoviePosterUrl } from "@/helpers/generic/moviePoster.tsx";
+import { constructMoviePosterUrl } from "@/helpers/movies/moviePoster.tsx";
+import { renderMovieCertification, renderMovieDuration, formatReleaseDate } from "@/helpers/movies/movieDetails.tsx";
 
 /** Blocks */
 import { PageWrapper } from "@/components/blocks/generic/PageWrapper.tsx";
@@ -32,6 +33,7 @@ const MovieDetailPage = () => {
     error: movieDetailsError,
     retry: retryMovieDetails,
   } = useFetchMovieDetails({ movieId: movieId });
+
   const { data: movieReleaseData } = useFetchMovieReleaseDates(movieId);
 
   /** Effects */
@@ -75,22 +77,6 @@ const MovieDetailPage = () => {
     return "";
   }, [movieReleaseData]);
 
-  /** Helpers */
-  const renderMovieCertification = (certification: string) => {
-    const certificationText = certification === "0" ? "AL" : certification;
-    return (
-      <p className="rounded-full text-center text-sm aspect-square w-[32px] bg-black-main  p-1 font-semibold border-2 border-white-main">
-        {certificationText}
-      </p>
-    );
-  };
-
-  const renderMovieDuration = (runtime: number) => {
-    const minutes = runtime % 60;
-    const hours = (runtime - minutes) / 60;
-    return `${hours}h ${minutes}m`;
-  };
-
   /** Markup */
   return (
     <>
@@ -112,9 +98,9 @@ const MovieDetailPage = () => {
             <section className="mb-10 sm:mt-5 mt-2">
               {/* Top bar */}
               <ul className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                <li>{movieDetails.release_date}</li>
-                {relevantCertification && <li>{renderMovieCertification(relevantCertification)}</li>}
-                <li>{renderMovieDuration(movieDetails.runtime)}</li>
+                <li>{formatReleaseDate({ releaseDate: new Date(movieDetails.release_date) })}</li>
+                {relevantCertification && <li>{renderMovieCertification({ certification: relevantCertification })}</li>}
+                <li>{renderMovieDuration({ runtime: movieDetails.runtime })}</li>
                 <li className="border-2 border-grey-light rounded text-sm px-1 text-grey-light">HD</li>
               </ul>
 
