@@ -30,12 +30,12 @@ const MovieCarousel = ({ movies, title, animateIn, animationDelay = 0, enableInf
   useEffect(() => {
     if (!animateIn || !isSwiperLoaded || !swiperContainerRef.current) return;
 
-    const images = swiperContainerRef.current.querySelectorAll("img");
+    const posterLinks = swiperContainerRef.current.querySelectorAll("a");
 
     const amimateIn = () => {
-      for (let i = 0; i < images.length; i++) {
+      for (let i = 0; i < posterLinks.length; i++) {
         setTimeout(() => {
-          images[i].classList.add("opacity-100");
+          posterLinks[i].classList.add("opacity-100");
         }, i * 40);
       }
     };
@@ -59,19 +59,29 @@ const MovieCarousel = ({ movies, title, animateIn, animationDelay = 0, enableInf
           {/* Carousel */}
           <Swiper slidesPerView={"auto"} spaceBetween={16} onSwiper={() => setIsSwiperLoaded(true)}>
             {movies.map((item: MovieType, index: number) => (
-              <SwiperSlide key={index} className="w-1/4 lg:h-[210px] group aspect-[115/173] lg:w-fit md:aspect-[16/10]">
+              <SwiperSlide
+                key={index}
+                className="w-1/4 relative lg:h-[210px] group/infobox aspect-[115/173] lg:w-fit md:aspect-[16/10]"
+              >
                 {/* Info box */}
                 {enableInfoBox && <InfoBox movieData={item} />}
 
                 {/* Poster */}
-                <Link to={`/browse/${item.id}`}>
+                <Link to={`/browse/${item.id}`} className={animateIn ? "opacity-0 transition-all duration-700" : ""}>
+                  <Heading
+                    type="h3"
+                    className="absolute top-2 left-2 max-w-[calc(100%-16px)] group-hover/infobox:opacity-0 transition-all delay-500 duration-300 bg-black-main/50 rounded p-1"
+                  >
+                    {item.title}
+                  </Heading>
+
                   {renderMoviePoster({
                     posterPath: item.poster_path,
                     backdropPath: item.backdrop_path,
                     posterSize: 500,
                     backdropSize: 780,
                     dataProperty: { key: "image-index", value: index },
-                    className: `${animateIn ? "opacity-0 transition-all duration-700" : ""} rounded`,
+                    className: "rounded",
                   })}
                 </Link>
               </SwiperSlide>

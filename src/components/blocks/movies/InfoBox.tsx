@@ -14,7 +14,7 @@ import { MovieType } from "@/helpers/api/movies/types.ts";
 
 /**
  * Component is used to show an info box on parent hover on > lg screens.
- * In order to use this component, parent element should have the following classes "group relative".
+ * In order to use this component, parent element should have the following classes "group/infobox relative".
  *
  * @param {MovieType} movieData - Movie data.
  */
@@ -34,7 +34,7 @@ const InfoBox = ({ movieData }: { movieData: MovieType }) => {
 
   /** Markup */
   return (
-    <div className="absolute hidden lg:block px-4 py-2 rounded top-1/2 left-1/2 scale-0 opacity-0 transform -translate-y-1/2 -translate-x-1/2 w-[70%] h-[70%] bg-black-transparent backdrop-blur-xl group-hover:scale-125 group-hover:opacity-100 transition-all duration-300 delay-500">
+    <div className="absolute hidden lg:block px-4 py-2 rounded top-1/2 left-1/2 scale-0 opacity-0 transform -translate-y-1/2 -translate-x-1/2 w-[70%] h-[70%] bg-black-transparent backdrop-blur-xl group-hover/infobox:scale-125 group-hover/infobox:opacity-100 transition-all duration-300 delay-500">
       <p className="font-semibold text-base truncate">{movieData.original_title}</p>
 
       <p className="text-xs text-grey-light">{formatReleaseDate({ releaseDate: new Date(movieData.release_date) })}</p>

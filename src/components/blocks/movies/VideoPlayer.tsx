@@ -44,7 +44,7 @@ const VideoPlayer = ({ file, poster, autoplay = false, enableFullScreen = false,
 
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(autoplay);
-  const [startedPlaying, setStartedPlaying] = useState(autoplay);
+  const [showControls, setShowControls] = useState(autoplay);
   const [playedRatio, setPlayedRatio] = useState(0);
   const [playedSeconds, setPlayedSeconds] = useState(0);
   const [loadedSeconds, setLoadedSeconds] = useState(0);
@@ -66,6 +66,8 @@ const VideoPlayer = ({ file, poster, autoplay = false, enableFullScreen = false,
         setIsFullScreen(true);
       } else {
         setIsFullScreen(false);
+        setIsPlaying(false);
+        setShowControls(false);
       }
     };
 
@@ -98,11 +100,12 @@ const VideoPlayer = ({ file, poster, autoplay = false, enableFullScreen = false,
   const handlePlay = () => {
     if (!enableFullScreen) return;
     requestFullScreen();
+    reactPlayerRef.current.seekTo(playedSeconds);
   };
 
   const handleStartPlaying = () => {
     setIsPlaying(true);
-    setStartedPlaying(true);
+    setShowControls(true);
   };
 
   const formatTime = (seconds: number) => {
@@ -121,7 +124,7 @@ const VideoPlayer = ({ file, poster, autoplay = false, enableFullScreen = false,
         url={file}
         volume={1}
         muted={muted}
-        light={autoplay ? "" : poster}
+        light={!isFullScreen && !isPlaying ? poster : ""}
         playing={isPlaying}
         onStart={() => handlePlay()}
         onPlay={() => handlePlay()}
@@ -130,7 +133,7 @@ const VideoPlayer = ({ file, poster, autoplay = false, enableFullScreen = false,
       />
 
       {/* Custom controls */}
-      {!isIOSMobile && startedPlaying && (
+      {!isIOSMobile && showControls && (
         <div className="absolute bottom-2 inset-x-[15px] flex flex-col">
           <div className="flex justify-between mb-2">
             <div className="flex items-center">

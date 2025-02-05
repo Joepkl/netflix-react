@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 type ButtonBase = {
   text?: string;
   icon?: string;
-  variant?: "primary" | "secondary" | "outline" | "tertiary";
+  variant?: "primary" | "secondary" | "outline" | "tertiary" | "icon";
   iconPosition?: "left" | "right";
   iconOnly?: boolean;
   className?: string;
@@ -48,6 +48,7 @@ const Button = ({
     secondary: "bg-grey-main text-white-main font-bold",
     outline: "bg-transparent text-white-main border border-white-main font-bold",
     tertiary: "underline underline-offset-4 text-white px-0 py-0",
+    icon: "",
   };
   const elementClasses = twMerge(baseClass, variantClasses[variant], className);
 
