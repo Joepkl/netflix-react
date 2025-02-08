@@ -2,7 +2,6 @@
 import { useAppDispatch } from "@/store/hooks.ts";
 import { setIsPlayingDetailPageVideo } from "@/store/slices/app.ts";
 import { MovieType } from "@/helpers/api/movies/types.ts";
-import { renderMoviePoster } from "@/helpers/movies/moviePoster.tsx";
 import PlayIcon from "@/assets/icons/play.svg";
 import InfoIcon from "@/assets/icons/info_white.svg";
 
@@ -10,6 +9,7 @@ import InfoIcon from "@/assets/icons/info_white.svg";
 import { Button } from "@/components/ui/Button.tsx";
 import { Heading } from "@/components/ui/Heading.tsx";
 import { Top10Block } from "@/components/blocks/movies/Top10Block.tsx";
+import { MoviePoster } from "@/components/blocks/movies/MoviePoster.tsx";
 
 const HighlightMovie = ({ highlightMovieData }: { highlightMovieData: MovieType }) => {
   const dispatch = useAppDispatch();
@@ -22,14 +22,14 @@ const HighlightMovie = ({ highlightMovieData }: { highlightMovieData: MovieType 
   /** Markup */
   return (
     <section className="mb-6 sm:mb-10 relative mx-[30px] sm:mx-0">
-      {renderMoviePoster({
-        posterPath: highlightMovieData.poster_path,
-        backdropPath: highlightMovieData.backdrop_path,
-        posterSize: "original",
-        backdropSize: "original",
-        breakpoint: "sm",
-        className: "rounded max-h-[500px] md:max-h-[400px] lg:max-h-[500px] sm:aspect-video sm:rounded-none",
-      })}
+      <MoviePoster
+        posterPath={highlightMovieData.poster_path}
+        backdropPath={highlightMovieData.backdrop_path}
+        posterSize="original"
+        backdropSize="original"
+        breakpoint="sm"
+        className="rounded max-h-[500px] md:max-h-[400px] lg:max-h-[500px] sm:aspect-video sm:rounded-none"
+      />
 
       {/* Overlay */}
       <div className="bg-black-gradient-to-right absolute inset-0 hidden sm:block" />
@@ -40,7 +40,7 @@ const HighlightMovie = ({ highlightMovieData }: { highlightMovieData: MovieType 
 
           {/* Content */}
           <Heading type="h2" styling="h1" className="mb-1">
-            {highlightMovieData.original_title}
+            {highlightMovieData.title}
           </Heading>
           <p>{highlightMovieData.overview}</p>
         </div>

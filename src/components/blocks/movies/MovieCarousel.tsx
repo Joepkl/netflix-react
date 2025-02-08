@@ -4,12 +4,10 @@ import "swiper/css";
 import { Link } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 
-/** Local */
-import { renderMoviePoster } from "@/helpers/movies/moviePoster.tsx";
-
 /** Blocks */
 import { Heading } from "@/components/ui/Heading.tsx";
 import { InfoBox } from "@/components/blocks/movies/InfoBox.tsx";
+import { MoviePoster } from "@/components/blocks/movies/MoviePoster.tsx";
 
 /** Type */
 import { MovieType } from "@/helpers/api/movies/types.ts";
@@ -70,19 +68,19 @@ const MovieCarousel = ({ movies, title, animateIn, animationDelay = 0, enableInf
                 <Link to={`/browse/${item.id}`} className={animateIn ? "opacity-0 transition-all duration-700" : ""}>
                   <Heading
                     type="h3"
-                    className="absolute top-2 left-2 max-w-[calc(100%-16px)] group-hover/infobox:opacity-0 transition-all delay-500 duration-300 bg-black-main/50 rounded p-1"
+                    className="absolute hidden md:block top-2 left-2 max-w-[calc(100%-16px)] group-hover/infobox:opacity-0 transition-all delay-500 duration-300 bg-black-main/50 rounded p-1"
                   >
                     {item.title}
                   </Heading>
 
-                  {renderMoviePoster({
-                    posterPath: item.poster_path,
-                    backdropPath: item.backdrop_path,
-                    posterSize: 500,
-                    backdropSize: 780,
-                    dataProperty: { key: "image-index", value: index },
-                    className: "rounded",
-                  })}
+                  <MoviePoster
+                    posterPath={item.poster_path}
+                    backdropPath={item.backdrop_path}
+                    posterSize={500}
+                    backdropSize={780}
+                    dataProperty={{ key: "image-index", value: index }}
+                    className="rounded"
+                  />
                 </Link>
               </SwiperSlide>
             ))}
